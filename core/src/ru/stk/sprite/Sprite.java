@@ -43,6 +43,10 @@ public class Sprite extends Rect {
         setWidth(height * aspect);
     }
 
+    public void move(Vector2 pos) {
+        this.pos.set(pos);
+    }
+
     public boolean touchDown(Vector2 touch, int pointer, int button) {
         return false;
     }

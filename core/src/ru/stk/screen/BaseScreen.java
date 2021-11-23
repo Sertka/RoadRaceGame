@@ -106,33 +106,33 @@ public class BaseScreen implements Screen, InputProcessor {
 
     @Override
     public boolean touchDown(int screenX, int screenY, int pointer, int button) {
-        System.out.println("touchDown screenX = " + screenX + " screenY = " + screenY);
+      //  System.out.println("touchDown screenX = " + screenX + " screenY = " + screenY);
         touch.set(screenX, screenBounds.getHeight() - screenY).mul(screenToWorld);
         touchDown(touch, pointer, button);
         return false;
     }
 
     public boolean touchDown(Vector2 touch, int pointer, int button) {
-        System.out.println("touchDown touchX = " + touch.x + " touchY = " + touch.y);
+       // System.out.println("touchDown touchX = " + touch.x + " touchY = " + touch.y);
         return false;
     }
 
     @Override
     public boolean touchUp(int screenX, int screenY, int pointer, int button) {
-        System.out.println("touchUp screenX = " + screenX + " screenY = " + screenY);
+      //  System.out.println("touchUp screenX = " + screenX + " screenY = " + screenY);
         touch.set(screenX, screenBounds.getHeight() - screenY).mul(screenToWorld);
         touchUp(touch, pointer, button);
         return false;
     }
 
     public boolean touchUp(Vector2 touch, int pointer, int button) {
-        System.out.println("touchUp touchX = " + touch.x + " touchY = " + touch.y);
+      //  System.out.println("touchUp touchX = " + touch.x + " touchY = " + touch.y);
         return false;
     }
 
     @Override
     public boolean touchDragged(int screenX, int screenY, int pointer) {
-        System.out.println("touchDragged screenX = " + screenX + " screenY = " + screenY);
+      //  System.out.println("touchDragged screenX = " + screenX + " screenY = " + screenY);
         touch.set(screenX, screenBounds.getHeight() - screenY).mul(screenToWorld);
         touchDragged(touch, pointer);
         return false;
@@ -150,7 +150,7 @@ public class BaseScreen implements Screen, InputProcessor {
 
     @Override
     public boolean scrolled(float amountX, float amountY) {
-        System.out.println("scrolled amountX = " + amountX + " amountY = " + amountY);
+       // System.out.println("scrolled amountX = " + amountX + " amountY = " + amountY);
         return false;
     }
 }
