@@ -1,6 +1,5 @@
 package ru.stk;
 
-import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Game;
 import ru.stk.screen.impl.MenuScreen;
 
