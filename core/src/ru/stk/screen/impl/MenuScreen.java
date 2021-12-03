@@ -14,7 +14,7 @@ import ru.stk.sprite.impl.Star;
 
 public class MenuScreen extends BaseScreen {
 
-    private static final int STAR_COUNT = 64;
+    private static final int STAR_COUNT = 256;
 
     private final Game game;
 
