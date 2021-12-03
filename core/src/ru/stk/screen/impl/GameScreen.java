@@ -1,5 +1,8 @@
 package ru.stk.screen.impl;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Music;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.math.Vector2;
@@ -23,6 +26,8 @@ public class GameScreen extends BaseScreen {
     private TextureAtlas atlas;
     private Star[] stars;
     private MainShip mainShip;
+    private Music music;
+
 
     @Override
     public void show() {
@@ -38,6 +43,14 @@ public class GameScreen extends BaseScreen {
             stars[i] = new Star(atlas);
         }
         mainShip = new MainShip(atlas, bulletPool);
+
+        // Music initialization
+        music = Gdx.audio.newMusic(Gdx.files.internal("sounds/music.mp3"));
+        music.setLooping(true);
+        music.setVolume(1.5f);
+        music.play();
+
+
     }
 
     @Override
@@ -64,6 +77,7 @@ public class GameScreen extends BaseScreen {
         bg.dispose();
         atlas.dispose();
         bulletPool.dispose();
+        music.dispose();
     }
 
     @Override
