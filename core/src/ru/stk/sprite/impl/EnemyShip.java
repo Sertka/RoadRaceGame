@@ -9,6 +9,9 @@ import ru.stk.pool.impl.BulletPool;
 import ru.stk.sprite.Ship;
 
 public class EnemyShip extends Ship {
+    private final Vector2 appearV = new Vector2(0, -0.8f);
+    private Vector2 normalV;
+    private boolean appearFlag;
 
     public EnemyShip(BulletPool bulletPool, Sound bulletSound, Rect worldBounds) {
         this.bulletPool = bulletPool;
@@ -16,11 +19,20 @@ public class EnemyShip extends Ship {
         this.worldBounds = worldBounds;
         this.v = new Vector2();
         this.v0 = new Vector2();
+        this.normalV = new Vector2();
+        this.appearFlag = false;
     }
 
     @Override
     public void update(float delta) {
         super.update(delta);
+
+       if ((getTop() < worldBounds.getTop())) {
+            this.v.set(normalV);
+        } else {
+           reloadTimer = reloadInterval - 0.1f;
+       }
+
         if (getBottom() < worldBounds.getBottom()) {
             destroy();
         }
@@ -38,7 +50,8 @@ public class EnemyShip extends Ship {
             int hp
     ) {
         this.regions = regions;
-        this.v.set(v);
+        this.normalV.set(v);
+        this.v.set(appearV);
         this.bulletRegion = bulletRegion;
         this.bulletHeight = bulletHeight;
         this.bulletV = bulletV;
