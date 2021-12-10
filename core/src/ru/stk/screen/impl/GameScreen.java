@@ -16,6 +16,7 @@ import ru.stk.pool.impl.ExplosionPool;
 import ru.stk.screen.BaseScreen;
 import ru.stk.sprite.impl.Background;
 import ru.stk.sprite.impl.Bullet;
+import ru.stk.sprite.impl.ButtonNewGame;
 import ru.stk.sprite.impl.EnemyShip;
 import ru.stk.sprite.impl.GameOver;
 import ru.stk.sprite.impl.MainShip;
@@ -29,6 +30,7 @@ public class GameScreen extends BaseScreen {
     private Texture bg;
     private Background background;
     private GameOver gameOver;
+    private ButtonNewGame buttonNewGame;
 
     private ExplosionPool explosionPool;
     private BulletPool bulletPool;
@@ -60,6 +62,7 @@ public class GameScreen extends BaseScreen {
         explosionPool = new ExplosionPool(atlas, explosionSound);
         bulletPool = new BulletPool();
         enemyPool = new EnemyPool(explosionPool, bulletPool, bulletSound, worldBounds);
+        buttonNewGame = new ButtonNewGame(atlas, this);
 
         stars = new Star[STAR_COUNT];
         for (int i = 0; i < stars.length; i++) {
@@ -92,6 +95,7 @@ public class GameScreen extends BaseScreen {
         }
         mainShip.resize(worldBounds);
         gameOver.resize(worldBounds);
+        buttonNewGame.resize(worldBounds);
     }
 
     @Override
@@ -110,13 +114,21 @@ public class GameScreen extends BaseScreen {
 
     @Override
     public boolean touchDown(Vector2 touch, int pointer, int button) {
-        mainShip.touchDown(touch, pointer, button);
+        if (!mainShip.isDestroyed()) {
+            mainShip.touchDown(touch, pointer, button);
+        } else {
+            buttonNewGame.touchDown(touch, pointer, button);
+        }
         return false;
     }
 
     @Override
     public boolean touchUp(Vector2 touch, int pointer, int button) {
-        mainShip.touchUp(touch, pointer, button);
+        if (!mainShip.isDestroyed()) {
+            mainShip.touchUp(touch, pointer, button);
+        } else {
+            buttonNewGame.touchUp(touch, pointer, button);
+        }
         return false;
     }
 
@@ -184,6 +196,15 @@ public class GameScreen extends BaseScreen {
         }
     }
 
+    public void newGame() {
+
+        mainShip.restart();
+
+        bulletPool.freeAllActive();
+        explosionPool.freeAllActive();
+        enemyPool.freeAllActive();
+    }
+
     private void freeAllDestroyed() {
         explosionPool.freeAllDestroyed();
         bulletPool.freeAllDestroyed();
@@ -201,6 +222,7 @@ public class GameScreen extends BaseScreen {
             bulletPool.drawActiveSprites(batch);
             enemyPool.drawActiveSprites(batch);
         } else {
+            buttonNewGame.draw(batch);
             gameOver.draw(batch);
         }
         explosionPool.drawActiveSprites(batch);
