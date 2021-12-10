@@ -12,6 +12,7 @@ import ru.stk.sprite.Ship;
 
 public class MainShip extends Ship {
 
+    private static final int HP = 100;
     private static final float HEIGHT = 0.15f;
     private static final float BOTTOM_MARGIN = 0.05f;
     private static final int INVALID_POINTER = -1;
@@ -22,8 +23,6 @@ public class MainShip extends Ship {
 
     private int leftPointer = INVALID_POINTER;
     private int rightPointer = INVALID_POINTER;
-
-    private final int BASE_HP = 1;
 
     public MainShip(TextureAtlas atlas, ExplosionPool explosionPool, BulletPool bulletPool, Sound bulletSound) {
         super(atlas.findRegion("main_ship"), 1, 2, 2);
@@ -38,7 +37,18 @@ public class MainShip extends Ship {
         this.damage = 1;
         this.reloadInterval = RELOAD_INTERVAL;
         this.reloadTimer = 0;
-        this.hp = BASE_HP;
+        this.hp = HP;
+    }
+
+    public void startNewGame() {
+        hp = HP;
+        flushDestroy();
+        stop();
+        pressedLeft = false;
+        pressedRight = false;
+        leftPointer = INVALID_POINTER;
+        rightPointer = INVALID_POINTER;
+        pos.x = worldBounds.pos.x;
     }
 
     @Override
@@ -67,11 +77,6 @@ public class MainShip extends Ship {
                 || bullet.getBottom() > pos.y
                 || bullet.getTop() < getBottom()
         );
-    }
-
-    public void restart() {
-        hp = BASE_HP;
-        flushDestroy();
     }
 
     @Override
