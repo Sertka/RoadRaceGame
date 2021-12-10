@@ -69,6 +69,10 @@ public class Ship extends Sprite {
         return hp;
     }
 
+    public Vector2 getV() {
+        return v;
+    }
+
     @Override
     public void destroy() {
         super.destroy();
